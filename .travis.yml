@@ -12,4 +12,4 @@ script:
   - pylint -E infolesson
 
 after_success:
-  - pylint money_bot
+  - pylint infolesson
