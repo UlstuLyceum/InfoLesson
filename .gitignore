@@ -5,6 +5,10 @@ __pycache__/
 
 # IDE files
 .idea/
+node_modules/
+
+# Config files
+local_config.py
 
 # C extensions
 *.so
