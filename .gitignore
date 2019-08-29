@@ -107,4 +107,4 @@ venv.bak/
 .mypy_cache/
 
 # project-specific configuration files
-InfoLesson/local_config.py
+infolesson/local_config.py
