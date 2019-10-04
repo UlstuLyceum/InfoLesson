@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InfoLesson</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" >
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('index') }}">InfoLesson <span class="red-text">β</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {% if current_user == None %}
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">О системе</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" aria-disabled="true">Новости</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-success form-control mr-sm-2">Вход</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-success form-control mr-sm-2">Регистрация</a>
+                </form>
+            {% else %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Мои уроки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Оценки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('classes.classes_list', school_id=current_user.school.id) }}">Классы</a>
+                </li>
+                {% if current_user.role >= 2 %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Мои программы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('tasks.collection') }}">Сборник задач</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Сотрудники</a>
+                    </li>
+                {% endif %}
+                {% if current_user.role >= 4 %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Панель аминистратора</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a href="{{ url_for('auth.userpage', user_id=current_user.id) }}" class="mr-sm-2">{{ current_user.login }}</a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-success form-control mr-sm-2">Выйти</a>
+            </form>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container-fluid">
+        {% block content %}
+
+        {% endblock %}
+        <div class="row footer" style="margin-top: 20px;">
+            <div class="col-md-4">
+                <ul class="footer-ul">
+                    <li><a href="#">О системе</a></li>
+                    <li><a href="#">Новости</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <u><b>Контакты</b></u>
+                <br>
+                <p id="footer-offset">
+                    <a href="#"><img src="{{ url_for('static', filename='img/vk_logo.png') }}" alt="vk"></a>
+                    <a href="#"><img src="{{ url_for('static', filename='img/github_logo.png') }}" width="40" height="40" alt="github"></a>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ url_for('index') }}" id="footer-logo">
+                    <span>InfoLesson <span class="red-text">β</span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
