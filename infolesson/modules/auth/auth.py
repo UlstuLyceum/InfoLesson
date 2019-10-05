@@ -1,8 +1,12 @@
-from flask import Blueprint, render_template
+from flask import Blueprint
+from flask_security import current_user, login_required
 
-auth = Blueprint('auth', __name__, template_folder='templates')
+from infolesson.utils.basic_utils import render
+
+auth = Blueprint("auth", __name__, template_folder="templates")
 
 
-@auth.route('/login')
+@auth.route("/login2")
+@login_required
 def login_page():
-    return render_template('login.html')
+    return render("login.html")

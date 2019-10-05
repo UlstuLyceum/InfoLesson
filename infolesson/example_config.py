@@ -3,4 +3,8 @@ FLASK_HOST = "0.0.0.0"
 FLASK_PORT = 8080
 FLASK_DEBUG = True
 CSRF_ENABLED = True
-SECRET_KEY = 'some@secret!salt$4(security214'
+SECRET_KEY = "123"
+SECURITY_SALT = "123"
+
+# DB CONFIG
+DB_URI = "sqlite:///test.db"

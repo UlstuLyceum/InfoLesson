@@ -108,3 +108,6 @@ venv.bak/
 
 # project-specific configuration files
 infolesson/local_config.py
+
+# local db for testin
+infolesson/test.db
