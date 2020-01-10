@@ -1,7 +1,7 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_security import SQLAlchemyUserDatastore, Security
 from flask_security.forms import LoginForm
+from flask_sqlalchemy import SQLAlchemy
 from wtforms import StringField
 from wtforms.validators import InputRequired
 
@@ -34,3 +34,9 @@ class ExtendedLoginForm(LoginForm):
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore, login_form=ExtendedLoginForm)
+
+
+# Index page
+@app.route('/')
+def index():
+    return 'Main page'
