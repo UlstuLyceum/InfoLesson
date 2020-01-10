@@ -24,7 +24,7 @@ app.config["SECURITY_USER_IDENTITY_ATTRIBUTES"] = ["username"]
 db = SQLAlchemy(app, session_options={"expire_on_commit": False})
 
 # Flask Security
-app.config['SECURITY_REGISTERABLE'] = True
+app.config["SECURITY_REGISTERABLE"] = True
 from infolesson.utils.models import User, Role
 
 # Setup Flask-Security
@@ -33,12 +33,14 @@ security = Security(app, user_datastore, login_form=ExtendedLoginForm)
 
 
 # Index page
-@app.route('/')
+@app.route("/")
 def index():
-    print(current_user)
-    return render('index.html', current_user=current_user)
+    return render("index.html", current_user=current_user)
 
 
 # Register blueprints
 from infolesson.modules.auth.auth import auth
+from infolesson.modules.classes.classes import classes
+
 app.register_blueprint(auth)
+app.register_blueprint(classes)

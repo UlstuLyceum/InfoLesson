@@ -1,8 +1,7 @@
 from flask import Blueprint
 from flask_security import current_user
 
-from infolesson.initialization import security
-from infolesson.initialization import app
+from infolesson.initialization import app, security
 
 auth = Blueprint("auth", __name__, template_folder="templates")
 
@@ -15,4 +14,3 @@ app.config["SECURITY_MSG_INVALID_PASSWORD"] = ("Неверный пароль", 
 @security.login_context_processor
 def security_login_processor():
     return dict(current_user=current_user)
-

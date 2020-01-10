@@ -111,3 +111,6 @@ infolesson/local_config.py
 
 # local db for testin
 infolesson/test.db
+
+# Load test data to db
+load_test_data.py

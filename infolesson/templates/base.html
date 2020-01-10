@@ -32,27 +32,41 @@
                 </form>
             {% else %}
             <ul class="navbar-nav mr-auto">
+                {% if current_user.has_role("student") %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Курсы</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Оценки</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Мой класс</a>
+                    </li>
+                {% endif %}
+                {% if current_user.has_role("teacher") or current_user.has_role("headteacher") or current_user.has_role("admin") %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Мои уроки</a>
+                    <a class="nav-link" href="#">Мои курсы</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Оценки</a>
+                    <a class="nav-link" href="{{ url_for("classes.school_classes_page", school_id=current_user.school.id) }}">Мои классы</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Классы</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Мои программы</a>
+                    <a class="nav-link" href="#">Классный журнал</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Сборник задач</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Сотрудники</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Панель аминистратора</a>
-                </li>
+                {% if current_user.has_role("headteacher") or current_user.has_role("admin") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Сотрудники</a>
+                    </li>
+                {% endif %}
+                {% if current_user.has_role("admin") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Панель аминистратора</a>
+                    </li>
+                {% endif %}
+                {% endif %}
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <a href="#" class="mr-sm-2">{{ current_user.username }}</a>
